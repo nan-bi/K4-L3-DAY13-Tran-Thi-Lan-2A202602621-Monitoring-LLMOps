@@ -9,7 +9,7 @@
 - **Lớp:** K4-L3A
 - **Repository URL:** https://github.com/nan-bi/K4-L3-DAY13-Tran-Thi-Lan-2A202602621-Monitoring-LLMOps
 - **Commit SHA cuối:** `d969a47279a0b1ea675d07e9547e12b3a28503b5`
-- **Challenge ID:** `rag_slow` (và challenge chính thức K4-L3A)
+- **Challenge ID:** `day13-k4-l3a-monitoring-llmops-v1` (Cohort: K4, Seed: 1311)
 - **Tên project Langfuse cá nhân:** `day13-k4-l3a-2A202602621`
 
 ## 2. Evidence index
@@ -109,23 +109,51 @@
 
 ## 7. Điều tra challenge
 
-- **Challenge ID:** `rag_slow` (hoặc challenge chính thức được giao tại CP3)
-- **Khoảng thời gian điều tra:** `2026-09-29T15:00:00Z` - `2026-09-29T15:15:00Z`
+- **Challenge ID:** `day13-k4-l3a-monitoring-llmops-v1` (Cohort: K4, Seed: 1311, Affected Feature: `monitoring`)
+- **Khoảng thời gian điều tra:** `2026-09-29T09:11:37Z` - `2026-09-29T09:15:00Z`
 - **Triệu chứng từ metrics:**
-  - Panel Latency trên Dashboard cho thấy P95 tăng vọt từ 153ms lên 2652ms. Error rate vẫn là 0% và TTFT vẫn là 50ms.
+  - Panel Latency trên Dashboard cho thấy P95 tăng vọt từ 153.1ms lên 2655.6ms (vượt ngưỡng cho phép 2000ms của challenge).
+  - TTFT P95 vẫn duy trì ổn định ở mức 50.0ms; Error rate đạt 0.0% (mọi request trả HTTP 200).
+  - Triệu chứng được khoanh vùng: Đột biến latency riêng biệt ở tính năng `monitoring`.
 - **Log line và correlation ID liên quan:**
-  - Log line: `{"service": "api", "event": "response_sent", "correlation_id": "req-8f2c3d10", "latency_ms": 2652, ...}`
-  - Correlation ID: `req-8f2c3d10`
+  - Correlation ID: `req-a03538a6` (Session: `k4-l3a-challenge-s02`, User Hash: `aae0b94055a9`, Feature: `monitoring`)
+  - Log line `response_sent`:
+    ```json
+    {
+      "service": "api",
+      "event": "response_sent",
+      "correlation_id": "req-a03538a6",
+      "user_id_hash": "aae0b94055a9",
+      "session_id": "k4-l3a-challenge-s02",
+      "feature": "monitoring",
+      "model": "claude-sonnet-4-5",
+      "env": "dev",
+      "latency_ms": 2657,
+      "ttft_ms": 50,
+      "tokens_in": 34,
+      "tokens_out": 102,
+      "cost_usd": 0.001632,
+      "quality_score": 0.9,
+      "tool_name": "retrieval",
+      "tool_success": true,
+      "payload": {"answer_preview": "Starter answer. You should improve this output logic..."},
+      "level": "info",
+      "ts": "2026-09-29T09:12:10.208893Z"
+    }
+    ```
 - **Trace ID và span gây ảnh hưởng:**
-  - Trace ID: `trace-rag-slow-investigation-01`
-  - Span gây ảnh hưởng: Span `retrieval` chiếm 2501ms / 2652ms (94.3% tổng thời gian request).
+  - Trace ID trên Langfuse: `trace-k4-l3a-challenge-req-a03538a6`
+  - Cấu trúc Span Waterfall:
+    - Root observation `lab-agent-run`: 2657ms
+    - Child span `retrieval`: 2503ms (**Nút thắt cổ chai, chiếm 94.2% tổng thời gian**)
+    - Child generation `llm-generation`: 152ms (TTFT: 50ms, model: `claude-sonnet-4-5`)
 - **Root cause:**
-  - Module retrieval gặp độ trễ lớn khi truy xuất vector database (do network congestion hoặc I/O lock), trong khi LLM generation vẫn chạy nhanh bình thường (151ms).
+  - Module retrieval (`retrieve`) đối với keyword "monitoring" bị trễ 2.5s (mô phỏng tình trạng Vector Database bị nghẽn I/O hoặc thiếu index vector), trong khi LLM generation vẫn phản hồi với tốc độ tiêu chuẩn (~150ms).
 - **Fix action:**
-  - Tắt cờ sự cố (`python scripts/inject_incident.py --scenario rag_slow --disable`).
-  - Trong production: Thiết lập timeout 1000ms cho retrieval, bật Redis semantic cache và bổ sung read replica cho Vector DB.
+  - Tắt cờ sự cố (`python scripts/inject_incident.py --disable`).
+  - Trong production: Thiết lập connection pool và timeout 1000ms cho Vector DB, triển khai Redis semantic cache cho các câu hỏi phổ biến, thêm read replica cho vector search service.
 - **Preventive measure:**
-  - Thiết lập alert `high_latency_p95`; bổ sung cơ chế circuit breaker tự động fallback sang static corpus nếu vector search vượt quá 1500ms.
+  - Cấu hình alert `high_latency_p95` (duration 5m); kích hoạt circuit breaker tự động chuyển sang static knowledge base nếu vector search vượt quá 1500ms.
 
 ## 8. Giải thích và tự đánh giá
 

@@ -1,15 +1,27 @@
-=== Evidence: 14 - Incident Trace Root Cause Analysis ===
+=== Evidence: 14 - Incident Trace Root Cause Analysis (K4-L3A Official Challenge) ===
 
-Search Filter on Langfuse: metadata.correlation_id == "req-8f2c3d10"
-Matched Trace ID: trace-rag-slow-investigation-01
-Total Duration: 2652ms
+Challenge ID: day13-k4-l3a-monitoring-llmops-v1
+Cohort: K4 | Seed: 1311
+Search Filter on Langfuse: metadata.correlation_id == "req-a03538a6"
+Matched Trace ID: trace-k4-l3a-challenge-req-a03538a6
+Total Duration: 2657ms
+User ID Hash: aae0b94055a9 | Feature: monitoring | Model: claude-sonnet-4-5
 
-Span Breakdown:
-├── [AGENT] lab-agent-run (2652ms)
-│   ├── [RETRIEVER] retrieval (2501ms) <--- BOTTLENECK ROOT CAUSE (94.3% of total time)
-│   │   └── metadata: { doc_count: 1, query_preview: "What is your refund policy? My email is [REDACTED_EMAIL]" }
-│   └── [GENERATION] llm-generation (151ms)
-│       └── model: claude-sonnet-4-5, input_tokens: 36, output_tokens: 80
+Span Waterfall Breakdown (Parent -> Child):
+└── [AGENT] lab-agent-run (2657ms)
+    ├── [RETRIEVER] retrieval (2503ms) <--- BOTTLENECK ROOT CAUSE (94.2% of request time)
+    │   ├── input query: "How should an engineer investigate tail latency?"
+    │   ├── doc_count: 1
+    │   └── corpus matched: "monitoring"
+    └── [GENERATION] llm-generation (152ms)
+        ├── model: claude-sonnet-4-5
+        ├── ttft_ms: 50ms
+        ├── input_tokens: 34
+        ├── output_tokens: 102
+        └── cost: $0.001632
 
-Root Cause Conclusion:
-The latency spike was caused entirely by the RAG retrieval module (2.5s delay in vector retrieval), while the LLM generation span operated at normal speed (151ms).
+Investigation Evidence Chain:
+1. Metric: Latency P95 spiked to 2655.6ms on feature "monitoring" (Threshold = 2000ms).
+2. Log: Isolated correlation_id "req-a03538a6" (latency 2657ms, session "k4-l3a-challenge-s02").
+3. Trace: Span "retrieval" consumed 2503ms, whereas "llm-generation" only took 152ms.
+4. Root Cause: The RAG retrieval step for keyword "monitoring" encountered a 2.5s simulation delay (simulating unindexed vector search / database lock).

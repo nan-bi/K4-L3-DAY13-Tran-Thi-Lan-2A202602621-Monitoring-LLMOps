@@ -1,10 +1,13 @@
-=== Evidence: 12 - Incident Metric Detection ===
+=== Evidence: 12 - Incident Metric Detection (K4-L3A Official Challenge) ===
 
-Incident Scenario: rag_slow
-Time Window: 2026-09-29T15:00:00Z - 2026-09-29T15:15:00Z
+Challenge ID: day13-k4-l3a-monitoring-llmops-v1
+Cohort: K4 | Seed: 1311 | Affected Feature: monitoring
+Time Window: 2026-09-29T09:11:37Z - 2026-09-29T09:15:00Z
 
 Dashboard Metric Anomaly:
-- Latency P95 spiked from 153.1ms (baseline) to 2652.0ms (> 3000ms threshold warning).
-- TTFT remained at 50ms (LLM generation was healthy).
-- Error rate: 0.0% (requests completed successfully, but with degraded latency).
-- Incident symptom localized to Latency metric degradation.
+- Latency P95 spiked from ~153ms (baseline) to 2655.6ms (> 2000ms latency threshold).
+- Latency P99: 2656.7ms.
+- TTFT P95 remained stable at 50.0ms (LLM token generation time was unaffected).
+- Error rate: 0.0% (all 5 challenge requests succeeded with status 200, but experienced severe latency).
+- Retrieval success: 100%.
+- Diagnosis from Metrics: Latency degradation specifically affecting the "monitoring" feature.
