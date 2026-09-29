@@ -8,7 +8,7 @@
 - **MSSV:** 2A202602621
 - **Lớp:** K4-L3A
 - **Repository URL:** https://github.com/nan-bi/K4-L3-DAY13-Tran-Thi-Lan-2A202602621-Monitoring-LLMOps
-- **Commit SHA cuối:** `d969a47279a0b1ea675d07e9547e12b3a28503b5`
+- **Commit SHA cuối:** `5441dd3`
 - **Challenge ID:** `day13-k4-l3a-monitoring-llmops-v1` (Cohort: K4, Seed: 1311)
 - **Tên project Langfuse cá nhân:** `day13-k4-l3a-2A202602621`
 
