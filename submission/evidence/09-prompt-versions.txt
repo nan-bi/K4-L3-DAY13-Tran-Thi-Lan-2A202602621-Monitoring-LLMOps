@@ -1,0 +1,23 @@
+=== Evidence: 09 - Langfuse Prompt Versions ===
+
+Prompt Name: day13-chat
+Project: day13-k4-l3a-2A202602621
+
+Version History:
+
+[Version 1]
+- Labels: ["baseline", "production"]
+- Template:
+  Feature={{feature}}
+  Docs={{docs}}
+  Question={{message}}
+- Trace Linked: trace-day13-v1-baseline-01
+
+[Version 2]
+- Labels: ["candidate"]
+- Template:
+  Feature={{feature}}
+  Docs={{docs}}
+  Question={{message}}
+  Instruction=Answer concisely in 1-2 sentences using verified docs only.
+- Trace Linked: trace-day13-v2-candidate-02

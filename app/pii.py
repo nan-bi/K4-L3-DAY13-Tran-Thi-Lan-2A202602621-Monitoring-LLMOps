@@ -8,11 +8,13 @@ PII_PATTERNS: dict[str, str] = {
     "phone_vn": r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)",
     "cccd": r"\b\d{12}\b",
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
-    # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
+    "passport_vn": r"\b[B-Z]\d{7,8}\b",
 }
 
 
 def scrub_text(text: str) -> str:
+    if not isinstance(text, str):
+        return text
     safe = text
     for name, pattern in PII_PATTERNS.items():
         safe = re.sub(pattern, f"[REDACTED_{name.upper()}]", safe)
@@ -20,6 +22,8 @@ def scrub_text(text: str) -> str:
 
 
 def summarize_text(text: str, max_len: int = 80) -> str:
+    if not isinstance(text, str):
+        return ""
     safe = scrub_text(text).strip().replace("\n", " ")
     return safe[:max_len] + ("..." if len(safe) > max_len else "")
 

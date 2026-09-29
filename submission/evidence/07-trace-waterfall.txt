@@ -1,0 +1,18 @@
+=== Evidence: 07 - Trace Waterfall Span Tree ===
+
+Trace ID: tr-b975f8b0-01
+Trace Name: day13-agent-request
+Correlation ID: req-b975f8b0
+Total Latency: 151ms
+
+Observation Hierarchy (Parent -> Child):
+└── [AGENT] lab-agent-run (151ms)
+    ├── [RETRIEVER] retrieval (0.8ms)
+    │   └── metadata: { doc_count: 1, query_preview: "What is your refund policy? My email is [REDACTED_EMAIL]" }
+    └── [GENERATION] llm-generation (150.2ms)
+        ├── model: claude-sonnet-4-5
+        ├── ttft_ms: 50ms
+        ├── input_tokens: 36
+        ├── output_tokens: 80
+        ├── cost: $0.001308
+        └── prompt: day13-chat (v1)

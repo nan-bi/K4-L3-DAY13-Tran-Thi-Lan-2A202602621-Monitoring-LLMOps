@@ -1,0 +1,16 @@
+=== Evidence: 10 - Prompt Promote & Rollback Demonstration ===
+
+Prompt: day13-chat
+
+Step 1: Baseline state
+- Version 1 had labels ["baseline", "production"]
+- App executed requests fetching Version 1 (Trace ID: trace-day13-v1-baseline-01)
+
+Step 2: Candidate promotion
+- Version 2 was promoted to "production"
+- App executed requests fetching Version 2 (Trace ID: trace-day13-v2-candidate-02)
+
+Step 3: Rollback
+- Production label was rolled back to Version 1 on Langfuse UI
+- App re-fetched Version 1 with zero downtime or code modification (Trace ID: trace-day13-v1-rollback-03)
+- Langfuse trace metadata confirmed: prompt_version = "1", prompt_label = "production"

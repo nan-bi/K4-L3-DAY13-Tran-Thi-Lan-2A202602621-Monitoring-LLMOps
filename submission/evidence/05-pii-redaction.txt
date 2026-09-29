@@ -1,0 +1,23 @@
+=== PII Redaction Evidence ===
+
+Test Cases demonstrating scrubbing before logs are written:
+
+1. Email Address:
+   - Raw Input: "What is your refund policy? My email is customer.support@vinuni.edu.vn"
+   - Scrubbed Output: "What is your refund policy? My email is [REDACTED_EMAIL]"
+
+2. Vietnamese Phone Numbers (all formats):
+   - Raw Input: "Contact 090 123 4567 or +84 90 123 4567 or 0901234567"
+   - Scrubbed Output: "Contact [REDACTED_PHONE_VN] or [REDACTED_PHONE_VN] or [REDACTED_PHONE_VN]"
+
+3. Căn cước công dân (CCCD - 12 digits):
+   - Raw Input: "So CCCD cua toi la 001234567890"
+   - Scrubbed Output: "So CCCD cua toi la [REDACTED_CCCD]"
+
+4. Credit Card (16 digits):
+   - Raw Input: "Credit card: 4111 2222 3333 4444 or 4111-2222-3333-4444"
+   - Scrubbed Output: "Credit card: [REDACTED_CREDIT_CARD] or [REDACTED_CREDIT_CARD]"
+
+5. User ID Protection:
+   - Raw User ID: "student-01"
+   - Redacted in Log Context: SHA-256 Hash -> "2055254ee30a"

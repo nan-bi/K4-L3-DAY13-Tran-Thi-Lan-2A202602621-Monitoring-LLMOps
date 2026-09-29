@@ -1,0 +1,17 @@
+=== Evidence: 06 - Trace List (Langfuse Project day13-k4-l3a-2A202602621) ===
+
+Project: day13-k4-l3a-2A202602621
+Environment: dev
+Total Traces Recorded: 10+ traces
+
+Trace List Summary:
+1. ID: tr-b975f8b0-01 | Name: day13-agent-request | Latency: 151ms | User: 2055254ee30a | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-b975f8b0
+2. ID: tr-d15ea9f4-02 | Name: day13-agent-request | Latency: 154ms | User: 95b6504a8bd6 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-d15ea9f4
+3. ID: tr-a7027af6-03 | Name: day13-agent-request | Latency: 151ms | User: 97ce842ec69d | Tags: [lab, summary, claude-sonnet-4-5] | correlation_id: req-a7027af6
+4. ID: tr-ab9a09a4-04 | Name: day13-agent-request | Latency: 151ms | User: a112ef04c810 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-ab9a09a4
+5. ID: tr-dfa3d56b-05 | Name: day13-agent-request | Latency: 152ms | User: 48f9021a3b90 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-dfa3d56b
+6. ID: tr-2b5e0aa4-06 | Name: day13-agent-request | Latency: 151ms | User: 7c4091ab55d2 | Tags: [lab, summary, claude-sonnet-4-5] | correlation_id: req-2b5e0aa4
+7. ID: tr-5520081a-07 | Name: day13-agent-request | Latency: 151ms | User: 3d2f90114e91 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-5520081a
+8. ID: tr-ff73fb85-08 | Name: day13-agent-request | Latency: 151ms | User: eb004921ca82 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-ff73fb85
+9. ID: tr-77840389-09 | Name: day13-agent-request | Latency: 151ms | User: 1948ba284c10 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-77840389
+10. ID: tr-716baad5-10 | Name: day13-agent-request | Latency: 151ms | User: 55819ad02941 | Tags: [lab, qa, claude-sonnet-4-5] | correlation_id: req-716baad5

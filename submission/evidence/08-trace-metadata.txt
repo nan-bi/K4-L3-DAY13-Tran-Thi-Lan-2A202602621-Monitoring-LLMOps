@@ -1,0 +1,31 @@
+=== Evidence: 08 - Trace Metadata & PII Safety ===
+
+Trace ID: tr-b975f8b0-01
+Observation: lab-agent-run
+
+Trace Root Metadata:
+{
+  "correlation_id": "req-b975f8b0",
+  "environment": "dev",
+  "feature": "qa",
+  "model": "claude-sonnet-4-5",
+  "session_id": "s01",
+  "tags": ["lab", "qa", "claude-sonnet-4-5"],
+  "user_id": "2055254ee30a"
+}
+
+Span Metadata:
+{
+  "doc_count": 1,
+  "prompt_fetch_error": "",
+  "prompt_label": "production",
+  "prompt_name": "day13-chat",
+  "prompt_source": "langfuse",
+  "prompt_version": "1",
+  "query_preview": "What is your refund policy? My email is [REDACTED_EMAIL]"
+}
+
+PII Safety Check:
+- Raw user email was scrubbed to [REDACTED_EMAIL]
+- User ID was hashed with SHA-256 (2055254ee30a)
+- Zero PII leaks in metadata fields.

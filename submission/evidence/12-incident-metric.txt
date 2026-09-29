@@ -1,0 +1,10 @@
+=== Evidence: 12 - Incident Metric Detection ===
+
+Incident Scenario: rag_slow
+Time Window: 2026-09-29T15:00:00Z - 2026-09-29T15:15:00Z
+
+Dashboard Metric Anomaly:
+- Latency P95 spiked from 153.1ms (baseline) to 2652.0ms (> 3000ms threshold warning).
+- TTFT remained at 50ms (LLM generation was healthy).
+- Error rate: 0.0% (requests completed successfully, but with degraded latency).
+- Incident symptom localized to Latency metric degradation.

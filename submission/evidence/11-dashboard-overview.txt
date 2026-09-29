@@ -1,0 +1,31 @@
+=== Dashboard Overview (6 Panels Runtime Calculation from data/logs.jsonl) ===
+
+$ python scripts/render_dashboard.py
+================================================================================
+           K4-L3A Day 13 Monitoring & LLMOps - RUNTIME DASHBOARD (6 PANELS)     
+ Source: logs.jsonl | Total Records: 23 | Time Window: 60 min
+================================================================================
+ [Panel 1: Latency & TTFT] (Unit: ms)
+   * Latency P50: 151.0ms | P95: 153.1ms | P99: 153.8ms
+   * TTFT P95:    50.0ms
+   * Threshold:   P95 <= 3000ms --> PASS (<= 3000ms)
+--------------------------------------------------------------------------------
+ [Panel 2: Traffic] (Unit: requests_per_minute)
+   * Total Requests: 10
+   * Threshold:      rate >= 1 req/min --> PASS
+--------------------------------------------------------------------------------
+ [Panel 3: Error Rate & Retrieval Success] (Unit: %)
+   * Error Rate:              0.00% (Threshold <= 2% --> PASS (<= 2%))
+   * Retrieval Success Rate:  100.0% (Guardrail >= 90%)
+--------------------------------------------------------------------------------
+ [Panel 4: Cost Over Time] (Unit: USD)
+   * Total Window Cost: $0.017469 (Threshold <= $2.50 --> PASS (<= $2.50))
+--------------------------------------------------------------------------------
+ [Panel 5: Input & Output Tokens] (Unit: tokens)
+   * Tokens In:  338 tokens
+   * Tokens Out: 1097 tokens
+   * Total:      1435 tokens --> PASS (<= 50000)
+--------------------------------------------------------------------------------
+ [Panel 6: Quality Proxy] (Unit: score_0_to_1)
+   * Mean Quality Score: 0.88 / 1.00 (Threshold >= 0.75 --> PASS (>= 0.75))
+================================================================================
